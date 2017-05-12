@@ -9,11 +9,12 @@ The global variables are those which its value is significant to all processes. 
 * Global
   * comm_sz
   * n
-  * a, b and c
-  * h
-  * source
+  * a, b and h
+
 * Local
   * my_rank
   * local_n
   * local_int
   * local_a, local_b
+  * total_int
+  * source
