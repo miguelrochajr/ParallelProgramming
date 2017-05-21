@@ -46,8 +46,6 @@ int main(void) {
         printf("%s", my_question);
      }
   }
-
-
   MPI_Finalize();
   return 0;
 }  /* main */
