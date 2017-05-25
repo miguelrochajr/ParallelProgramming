@@ -1,0 +1,18 @@
+[10:30 AM, 5/25/2017] Jan: gente, é só rodar no sc o trap2
+    modificado e o trap3 com 1 bilhão e 2 bilhões de trapézios.
+    manda rodar umas 3 vezes, cronometrando os tempos.
+[10:30 AM, 5/25/2017] Jan: 
+#!/bin/bash
+#SBATCH --job-name=mpi_trap2
+#SBATCH --time=0-0:4
+#SBATCH --partition=test
+#SBATCH --output=trap2-%j.out
+srun -n 2 mpi_trap2
+srun -n 4 mpi_trap2
+srun -n 8 mpi_trap2
+srun -n 16 mpi_trap2
+srun -n 32 mpi_trap2
+[10:30 AM, 5/25/2017] Jan: usa esse script
+[10:31 AM, 5/25/2017] Jan: manda "sbatch script.sh" no sc, usa "watch squeue -u USERNAME" pra ver se o job já terminou e pega o .out.
+[10:31 AM, 5/25/2017] Jan: (isso, claro, se localmente tá tudo funcionando)
+[10:32 AM, 5/25/2017] Jan: não esquecendo de compilar no sc antes de tudo (eu esqueci disso umas trocentas vezes)
