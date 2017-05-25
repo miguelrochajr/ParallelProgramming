@@ -45,7 +45,6 @@ int main(void) {
    int my_rank, comm_sz, n, local_n;
    double a, b, h, local_a, local_b;
    double local_int, total_int;
-   int source;
 
    /* Let the system do what it needs to start up MPI */
    MPI_Init(NULL, NULL);
@@ -68,24 +67,31 @@ int main(void) {
    local_b = local_a + local_n*h;
    local_int = Trap(local_a, local_b, local_n, h);
 
-   /* Add up the integrals calculated by each process */
-   if (my_rank != 0)
-      MPI_Send(&local_int, 1, MPI_DOUBLE, 0, 0,
-            MPI_COMM_WORLD);
-   else {
-      total_int = local_int;
-      for (source = 1; source < comm_sz; source++) {
-         MPI_Recv(&local_int, 1, MPI_DOUBLE, source, 0,
-            MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-         total_int += local_int;
-      }
+   total_int=local_int; /* This is an important step. Each received value will be
+                          added up to the local total_int */
+
+   int divisor=2;
+   int core_difference=1;
+   int partner;
+
+   while (divisor<=comm_sz){
+     if(my_rank%divisor==0){
+       partner = my_rank+core_difference;
+       MPI_Recv(&local_int, 1, MPI_DOUBLE, partner, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+       total_int+=local_int;
+     } else {
+       partner = my_rank-core_difference;
+       MPI_Send(&total_int, 1, MPI_DOUBLE, partner, 0, MPI_COMM_WORLD);
+       break;
+     }
+     divisor *=2;
+     core_difference *=2;
    }
 
    /* Print the result */
    if (my_rank == 0) {
       printf("With n = %d trapezoids, our estimate\n", n);
-      printf("of the integral from %f to %f = %.15e\n",
-          a, b, total_int);
+      printf("of the integral from %f to %f = %.15e\n", a, b, total_int);
    }
 
    /* Shut down MPI */
@@ -115,10 +121,9 @@ void Get_input(int my_rank, int comm_sz, double* a_p, double* b_p,
     divisor=pow(2,count);
     core_difference=divisor/2;
 
-    //read input from an external file
-    if (my_rank == 0){
-      printf("I am %d!!\n", my_rank);
-      //core 0 must load the values
+
+    if (my_rank == 0) // core 0 loads the inputs from external file
+    {
       FILE *fp;
       fp = fopen("mpi_trap2-inputs.txt", "r");
       fscanf(fp, "%lf %lf %d", a_p, b_p, n_p);
@@ -145,7 +150,7 @@ void Get_input(int my_rank, int comm_sz, double* a_p, double* b_p,
      core_difference /= 2;
    }
 
-}  /* Get_input */
+}
 
 /*------------------------------------------------------------------
  * Function:     Trap
@@ -176,7 +181,6 @@ double Trap(
 
    return estimate;
 } /*  Trap  */
-
 
 /*------------------------------------------------------------------
  * Function:    f
