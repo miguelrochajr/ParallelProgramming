@@ -32,7 +32,7 @@
 
 /* Get the input values */
 void Get_input(int my_rank, int comm_sz, double* a_p, double* b_p,
-      int* n_p);
+      int* n_p, double* start_time);
 
 /* Calculate local integral  */
 double Trap(double left_endpt, double right_endpt, int trap_count,
@@ -44,7 +44,7 @@ double f(double x);
 int main(void) {
    int my_rank, comm_sz, n, local_n;
    double a, b, h, local_a, local_b;
-   double local_int, total_int;
+   double local_int, total_int, start_time, time_max, total_time;
 
    /* Let the system do what it needs to start up MPI */
    MPI_Init(NULL, NULL);
@@ -55,7 +55,9 @@ int main(void) {
    /* Find out how many processes are being used */
    MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
 
-   Get_input(my_rank, comm_sz, &a, &b, &n);
+
+   /* Note that in here we are now passing the start_time param to measure time.*/
+   Get_input(my_rank, comm_sz, &a, &b, &n, &start_time);
 
    h = (b-a)/n;          /* h is the same for all processes */
    local_n = n/comm_sz;  /* So is the number of trapezoids  */
@@ -88,8 +90,14 @@ int main(void) {
      core_difference *=2;
    }
 
+   total_time = MPI_Wtime() - start_time;
+
+   MPI_Reduce(&total_time, &time_max, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+
+
    /* Print the result */
    if (my_rank == 0) {
+      printf("Total time was:  %lf\n ", time_max);
       printf("With n = %d trapezoids, our estimate\n", n);
       printf("of the integral from %f to %f = %.15e\n", a, b, total_int);
    }
@@ -111,9 +119,10 @@ int main(void) {
  *               n_p:  pointer to number of trapezoids
  */
 void Get_input(int my_rank, int comm_sz, double* a_p, double* b_p,
-      int* n_p) {
+      int* n_p, double* start_time) {
     int count, divisor, core_difference;
     double baseChangeResult;
+    int i;
                                           // we know that the number of iterations is the log(#processors) in base 2. Since we don't have base 2 natively, we must change basis.
     baseChangeResult=log(comm_sz)/log(2); // Here we are changing the logarithm base to the base 2. See image (https://wikimedia.org/api/rest_v1/media/math/render/svg/97a21bb377232d1d0fb8927a6e78501008bf794b)
     count = ceil(baseChangeResult); //since baseChangeResult is an double, we want o find the colsest integer to it. The reason for this is quite simple
@@ -125,14 +134,16 @@ void Get_input(int my_rank, int comm_sz, double* a_p, double* b_p,
     if (my_rank == 0) // core 0 loads the inputs from external file
     {
       FILE *fp;
-      fp = fopen("mpi_trap2-inputs.txt", "r");
+      fp = fopen("inputs.txt", "r");
       fscanf(fp, "%lf %lf %d", a_p, b_p, n_p);
       printf("The input values were: a=%lf b=%lf n=%d \n", *a_p, *b_p, *n_p);
       fclose(fp);
     }
 
+    *start_time = MPI_Wtime();
+
     //broadcasting to n processors
-   for (int i=0; i<count; i++){                                     //Be aware the necessity of the second condition. It will make the las odd processor to receive only once. Which is tue amount necessary.
+   for (i=0; i<count; i++){                                     //Be aware the necessity of the second condition. It will make the las odd processor to receive only once. Which is tue amount necessary.
      if (my_rank%divisor==0 && (my_rank+core_difference < comm_sz)) //Note that is not necessary to check my_rank==0, this will aways be true.
      {
        MPI_Send(a_p, 1, MPI_DOUBLE, my_rank+core_difference, 0, MPI_COMM_WORLD);
