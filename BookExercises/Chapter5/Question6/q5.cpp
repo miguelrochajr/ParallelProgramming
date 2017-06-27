@@ -4,7 +4,6 @@
   Author: Miguel Silva da Rocha Jr.
   Source Code taken from: https://github.com/miguelrochajr
   Email: miguelsrochajr@gmail.com
-
 */
 
  #include <iostream>
