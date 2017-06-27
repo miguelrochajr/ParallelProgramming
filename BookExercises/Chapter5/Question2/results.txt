@@ -1,0 +1,91 @@
+The excpected value is around 330.67
+------------ FOR n=32 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30750000000000e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30750000000000e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30750000000000e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30750000000000e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30750000000000e+02
+------------ FOR n=64 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30687500000000e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30687500000000e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30687500000000e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30687500000000e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30687500000000e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30687500000000e+02
+------------ FOR n=128 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30671875000000e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30671875000000e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30671875000000e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30671875000000e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30671875000000e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30671875000000e+02
+With thread_count = 128 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30671875000000e+02
+------------ FOR n=256 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+With thread_count = 128 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+With thread_count = 256 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30667968750000e+02
+------------ FOR n=512 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 128 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 256 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+With thread_count = 512 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666992187500e+02
+------------ FOR n=1024 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 128 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 256 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 512 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+With thread_count = 1024 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666748046875e+02
+------------ FOR n=2048 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 128 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 256 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 512 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+With thread_count = 1024 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.28463060498238e+02
+With thread_count = 2048 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666687011719e+02
+------------ FOR n=4096 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 128 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 256 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 512 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+With thread_count = 1024 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30522945702076e+02
+With thread_count = 2048 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.28323772065341e+02
+With thread_count = 4096 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666671752930e+02
+------------ FOR n=8192 ----------------
+With thread_count = 2 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 4 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 8 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 16 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 32 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 64 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 128 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 256 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 512 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.28401535026729e+02
+With thread_count = 1024 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.27348529487848e+02
+With thread_count = 2048 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30169853605330e+02
+With thread_count = 4096 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
+With thread_count = 8192 threads, our estimate of the integral from 2.000000 to 10.000000 = 3.30666667938232e+02
