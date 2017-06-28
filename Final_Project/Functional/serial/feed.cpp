@@ -14,20 +14,14 @@
 #define INPUTS  2
 #define SAMPLES 1
 
-//TODO:
-//  - processar dados de arquivo CSV para preencher os pesos das camadas.
-//  - modelo XOR que funcione para diferentes quantidades de neuronios
-void random(float *m1, float *m2, int row1, int col1, int row2, int col2);
-void produtomatricial(float *m1, float *m2, float *mprod, int row, int ig, int col);
-void funcaoAtivacao(float *in,float *out,int row, int col);
+void Matrix_mult(float *A, float *B, float *res,int M, int L, int N);
+void Random_assign(float *Matrix, int rows, int cols);
+void Activ_func(float *in,float *out,int row, int col);
 void Usage();
 //testando XOR com diferentes quantidades de NEURONS
 int main(int argc, char *argv[])
 {
-	if (argc < 2) {
-		Usage();
-		return -1;
-	}
+	if (argc < 2) Usage();
 
 	int NEURONS;
 	double start, finish;
@@ -46,21 +40,17 @@ int main(int argc, char *argv[])
 	float IDF2[OUTPUTS][SAMPLES];// Induced Local field second layer
 	float ATV2[OUTPUTS][SAMPLES];// Activated induced local fields
 
-	random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1); //creates random weights for each input due to each neuron
-
+	Random_assign(Wx[0],NEURONS,INPUTS+1);
+	Random_assign(Wy[0],OUTPUTS, NEURONS+1);
 
 	start = omp_get_wtime();
-	produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);// multiplies each input to each weight assigned to them
-	/* pass the products of inputs by weights through
-	 * the activation function of the first hidden layer*/
-	funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
-	/*Multiplies the output matrix from the activation function by
-	 * the output layer weight's*/
-	produtomatricial(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES);
-	/* Passes the local induced field (last activated weights*inputs) through the
-	 * activation function of the output layer*/
-	funcaoAtivacao(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
-	/* Thus we get the result from the neural network.*/
+
+	Matrix_mult(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);
+	Activ_func(IDF1[0],ATV1[0],NEURONS,SAMPLES);
+
+	Matrix_mult(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES);
+	Activ_func(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
+
 	finish = omp_get_wtime();
 
 	printf("For %d neurons, the time taken was: %lf seconds \n", NEURONS, finish-start);
@@ -84,25 +74,25 @@ void Usage()
 {
 	std::cout << "Some arguments are missing." << std::endl;
 	std::cout << "Usage: ./feed <NEURONS>" << std::endl;
+	exit(0);
 }
 
-void produtomatricial(float *m1, float *m2, float *mprod, int row, int ig, int col)
+void Matrix_mult(float *A, float *B, float *res, int M, int L, int N)
 {
-	int i,j,k;
-	for(i=0; i<row; i++)
-	{
-		for(j=0; j<col; j++)
-		{
-			*mprod = 0;
-			for(k=0; k<ig; k++)
-			{
-				*mprod += (*(m1 + i*ig + k))*(*(m2 + k*col + j));
+	int i, j, k;
+	double result = 0;
+	for (i = 0; i < M; i++){
+			for (j = 0; j < N; j++) {
+					result = 0;
+					for (k = 0; k < L; k++) {
+							 result += (*(A + i*L + k))*(*(B + k*N + j));
+					}
+					*(res+ j +i*N) = (float)result; /*REMINDER: result is a Double variable*/
 			}
-			mprod++;
-		}
 	}
 }
-void funcaoAtivacao(float *in,float *out,int row, int col)
+
+void Activ_func(float *in,float *out,int row, int col)
 {
 	int i,j;
 	for(i=0;i < row;i++)
@@ -113,23 +103,16 @@ void funcaoAtivacao(float *in,float *out,int row, int col)
 		}
 	}
 }
-void random(float *m1, float *m2, int row1, int col1, int row2, int col2)
+
+void Random_assign(float *Matrix, int rows, int cols)
 {
-	/*		*/
 	srand(time(NULL)); // seed for random. time(NULL) is from actual time
 	int i,j;
-	for(i=0; i<row1; i++)
+	for(i=0; i<rows; i++)
 	{
-		for(j=0; j<col1; j++)
+		for(j=0; j<cols; j++)
 		{
-			*m1++ = (float)rand()/(float)RAND_MAX;
-		}
-	}
-	for(i=0; i<row2; i++)
-	{
-		for(j=0; j<col2; j++)
-		{
-			*m2++ = (rand()%10)/10.0; // Initializes Wy
+			*Matrix++ = (float)rand()/(float)RAND_MAX;
 		}
 	}
 }
