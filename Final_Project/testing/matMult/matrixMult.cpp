@@ -10,7 +10,6 @@
 using namespace std;
 
 #define DEBUG
-#define PRINTMATRIX
 
 void Matrix_mult(double A[], double B[], double res[],
   int M, int L, int N, int thread_count)
@@ -37,8 +36,25 @@ void Matrix_mult(double A[], double B[], double res[],
 } /* End of mult */
 
 
+
+// void random_assngm(double a[], int length)
+// {
+//   cout << "Size of double :" <<  sizeof(double) << endl;
+//   cout << "Random assignment \n";
+//   srand(time(NULL));
+//   for (int i = 0; i < length; i++) {
+//     #ifdef DEBUG
+//       a[i] = i;
+//     #else
+//       a[i] = ((double)(rand()%100))/100.0;
+//     #endif
+//   }
+// }
+
 void random_assngm(double a[], int length)
 {
+  cout << "Size of double :" <<  sizeof(double) << endl;
+  cout << "Random assignment \n";
   srand(time(NULL));
   for (int i = 0; i < length; i++) {
     #ifdef DEBUG
@@ -121,7 +137,7 @@ int main(int argc, char const *argv[]) {
   Matrix_mult(A, B, res, M, L, N, thread_count);
   finish = omp_get_wtime();
 
-  cout << "Total time taken: " << finish-start << endl;
+  cout << "Total time taken: " << finish-start << "\n \n" ;
 
   # ifdef DEBUG
     print_matrix(res, M, N);

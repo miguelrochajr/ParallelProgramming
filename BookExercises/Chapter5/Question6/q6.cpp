@@ -1,5 +1,5 @@
 /*
-  Compile: g++ -g -Wall -fopenmp -o q5 q5.cpp
+  Compile: g++ -g -Wall -fopenmp -o q6 q6.cpp
 
   Author: Miguel Silva da Rocha Jr.
   Source Code taken from: https://github.com/miguelrochajr
@@ -65,7 +65,7 @@
        default(none) private(i) shared(min, max, n)
     {
     int my_rank = omp_get_thread_num();
- #     pragma omp for
+ #     pragma omp for //schedule(static)
        for (i = 0; i < n; i++) {
  #        ifdef DEBUG
           printf("Th %d > iteration %d\n", my_rank, i);
