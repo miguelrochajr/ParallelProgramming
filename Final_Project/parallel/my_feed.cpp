@@ -15,13 +15,13 @@ using namespace std;
 #define INPUTS  2
 #define SAMPLES 1
 
-void Random_assngm(double a[], int length);
-void Matrix_mult(double A[], double B[], double res[],
-                int M, int L, int N, int thread_count);
-void Activation_func(double in[],double out[],
-                int rows, int cols,int thread_count);
+void Random_assngm(float a[], int length); // DONE TO FLOAT
+void Matrix_mult(float A[], float B[], float res[],
+                int M, int L, int N, int thread_count); // DONE TO FLOAT
+void Activation_func(float in[],float out[],
+                int rows, int cols,int thread_count); // DONE TO FLOAT
 void Usage();
-void Print_matrix(double a[], int rows, int cols);
+void Print_matrix(float a[], int rows, int cols); // DONE TO FLOAT
 
 int main(int argc, char const *argv[]) {
 
@@ -33,17 +33,17 @@ int main(int argc, char const *argv[]) {
   thread_count = strtol(argv[2], NULL, 10);
 
   /*  Input vector */
-  double X[(INPUTS+1)*SAMPLES] = {0,0};
+  float X[(INPUTS+1)*SAMPLES] = {0,0};
 
   /* Hidden layer */
-	double Wx[NEURONS*(INPUTS+1)];  // Hidden layer weights matrix
-	double ILF1[NEURONS*SAMPLES];   // Induced Local field first layer
-	double ATV1[NEURONS*SAMPLES];   // Activated induced local fields
+	float Wx[NEURONS*(INPUTS+1)];  // Hidden layer weights matrix
+	float ILF1[NEURONS*SAMPLES];   // Induced Local field first layer
+	float ATV1[NEURONS*SAMPLES];   // Activated induced local fields
 
   /* Output Layer */
-  double Wy[OUTPUTS*(NEURONS+1)];  // Output layer weights matrix
-  double ILF2[OUTPUTS*SAMPLES];   // Induced Local field second layer
-  double ATV2[OUTPUTS*SAMPLES];   // Activated induced local fields
+  float Wy[OUTPUTS*(NEURONS+1)];  // Output layer weights matrix
+  float ILF2[OUTPUTS*SAMPLES];   // Induced Local field second layer
+  float ATV2[OUTPUTS*SAMPLES];   // Activated induced local fields
 
   /* Initialize Weights with random values */
   Random_assngm(Wx, NEURONS*(INPUTS+1));
@@ -76,7 +76,7 @@ void Usage()
   exit(0);
 }
 
-void Print_matrix(double a[], int rows, int cols)
+void Print_matrix(float a[], int rows, int cols)
 {
   int j,i;
   for (i = 0; i < rows; i++){
@@ -87,7 +87,7 @@ void Print_matrix(double a[], int rows, int cols)
   }
 }
 
-void Matrix_mult(double A[], double B[], double res[],
+void Matrix_mult(float A[], float B[], float res[],
   int M, int L, int N, int thread_count)
 {
   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
@@ -105,23 +105,23 @@ void Matrix_mult(double A[], double B[], double res[],
           for (k = 0; k < L; k++) {
               result+= A[k + i * L] * B[j + k * N];
           }
-          res[j + i * N] = result; /*REMINDER: result is a Double variable*/
+          res[j + i * N] = (float)result;
       }
   }
 }
 } /* End of mult */
 
-void Random_assngm(double a[], int length)
+void Random_assngm(float a[], int length)
 {
-  double random;
+  float random;
   srand(time(NULL));
   for (int i = 0; i < length; i++) {
-    random = ((double)(rand()%10000))/10000;
+    random = ((float)(rand()%10000))/10000.0;
     a[i] = random;
   }
 }
 
-void Activation_func(double in[],double out[],int rows, int cols,
+void Activation_func(float in[], float out[],int rows, int cols,
                     int thread_count) /*  SIGMOID ACTIVATION FUNCTION */
 {
   int i,j;
