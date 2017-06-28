@@ -1,4 +1,4 @@
 CC = g++ -g -Wall -fopenmp -o
 
-my_feed: feed.cpp
-	$(CC) feed feed.cpp
+serial_feed: serial_feed.cpp
+	$(CC) serial_feed serial_feed.cpp
