@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
 	}
 
 	int NEURONS;
+	double start, finish;
 	NEURONS = strtol(argv[1], NULL, 10);
 
 	/*  Input vector */
@@ -46,6 +47,9 @@ int main(int argc, char *argv[])
 	float ATV2[OUTPUTS][SAMPLES];// Activated induced local fields
 
 	random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1); //creates random weights for each input due to each neuron
+
+
+	start = omp_get_wtime();
 	produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);// multiplies each input to each weight assigned to them
 	/* pass the products of inputs by weights through
 	 * the activation function of the first hidden layer*/
@@ -57,15 +61,21 @@ int main(int argc, char *argv[])
 	 * activation function of the output layer*/
 	funcaoAtivacao(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
 	/* Thus we get the result from the neural network.*/
-	int i,j;
-	for(i = 0;i< OUTPUTS;i++)
-	{
-		for(j=0; j < SAMPLES;j++)
+	finish = omp_get_wtime();
+
+	printf("For %d neurons, the time taken was: %lf seconds \n", NEURONS, finish-start);
+
+	#ifdef DEBUG
+		int i,j;
+		for(i = 0;i< OUTPUTS;i++)
 		{
-			std::cout << std::setprecision(2) << std::fixed << ATV2[i][j] << "\t";
+			for(j=0; j < SAMPLES;j++)
+			{
+				std::cout << std::setprecision(2) << std::fixed << ATV2[i][j] << "\t";
+			}
+			std::cout << "\n";
 		}
-		std::cout << "\n";
-	}
+	#endif
 
 	return 0;
 }
