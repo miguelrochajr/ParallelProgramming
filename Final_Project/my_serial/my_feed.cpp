@@ -16,8 +16,7 @@ using namespace std;
 #define SAMPLES 1
 
 void Random_assngm(float a[], int length); // DONE TO FLOAT
-void Matrix_mult(float A[], float B[], float res[],
-                int M, int L, int N); // DONE TO FLOAT
+void Matrix_mult(float *A, float *B, float *res, int M, int L, int N);
 void Activation_func(float in[],float out[],
                 int rows, int cols); // DONE TO FLOAT
 void Usage();
@@ -50,10 +49,10 @@ int main(int argc, char const *argv[]) {
 
   start = omp_get_wtime();
 
-  Matrix_mult(Wx, X, ILF1, NEURONS,INPUTS+1,SAMPLES); // multiplies each input to each weight assigned to them
+  Matrix_mult(&Wx[0], &X[0], &ILF1[0], NEURONS,INPUTS+1,SAMPLES); // multiplies each input to each weight assigned to them
   Activation_func(ILF1, ATV1, NEURONS, SAMPLES);
 
-  Matrix_mult(Wy, ATV2, ILF2, OUTPUTS, NEURONS+1, SAMPLES);
+  Matrix_mult(&Wy[0], &ATV2[0], &ILF2[0], OUTPUTS, NEURONS+1, SAMPLES);
   Activation_func(ILF2, ATV2, OUTPUTS, SAMPLES);
 
   finish = omp_get_wtime();
@@ -86,20 +85,35 @@ void Print_matrix(float a[], int rows, int cols)
   }
 }
 
-void Matrix_mult(float A[], float B[], float res[],
-  int M, int L, int N)
+// void Matrix_mult(float A[], float B[], float res[],
+//   int M, int L, int N)
+// {
+//   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
+//   int i, j, k;
+//   for (i = 0; i < M; i++){
+//       for (j = 0; j < N; j++) {
+//           res[j + i * N] = 0;
+//           for (k = 0; k < L; k++) {
+//               res[j + i * N]+= A[k + i*L] * B[j + k*N];
+//           }
+//       }
+//   }
+// } /* End of mult */
+
+void Matrix_mult(float *A, float *B, float *res, int M, int L, int N)
 {
   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
   int i, j, k;
   for (i = 0; i < M; i++){
       for (j = 0; j < N; j++) {
-          res[j + i * N] = 0;
+          *res = 0;
           for (k = 0; k < L; k++) {
-              res[j + i * N]+= A[k + i * L] * B[j + k * N];
+              *res += (*(A + i*L + k))*(*(B + k*N + j));
           }
+          res++;
       }
   }
-} /* End of mult */
+}
 
 void Random_assngm(float a[], int length)
 {

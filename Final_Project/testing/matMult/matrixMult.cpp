@@ -11,13 +11,12 @@ using namespace std;
 
 #define DEBUG
 
-void Matrix_mult(double A[], double B[], double res[],
+void Matrix_mult(float A[], float B[], float res[],
   int M, int L, int N, int thread_count)
 {
   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
   int i, j, k;
   double result = 0;
-
 /* Creates the team of threads */
 # pragma omp parallel num_threads(thread_count) \
    private(i, j, k) shared(A,B, res,M,L,N) reduction (+: result)
@@ -29,43 +28,61 @@ void Matrix_mult(double A[], double B[], double res[],
           for (k = 0; k < L; k++) {
               result+= A[k + i * L] * B[j + k * N];
           }
-          res[j + i * N] = result; /*REMINDER: result is a Double variable*/
+          res[j + i * N] = (float)result; /*REMINDER: result is a Double variable*/
       }
   }
 }
 } /* End of mult */
 
-
-
-// void random_assngm(double a[], int length)
+// void Matrix_mult(float *Ax, float *Bx, float *resx, int M, int L, int N, int thread_count)
 // {
-//   cout << "Size of double :" <<  sizeof(double) << endl;
-//   cout << "Random assignment \n";
-//   srand(time(NULL));
-//   for (int i = 0; i < length; i++) {
-//     #ifdef DEBUG
-//       a[i] = i;
-//     #else
-//       a[i] = ((double)(rand()%100))/100.0;
-//     #endif
+//   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
+//
+// # pragma omp parallel num_threads(thread_count)
+// {
+//   int i, j, k;
+//   float *A  = Ax;
+//   float *B  = Bx;
+//   float *res= resx;
+//   bool  set = 0;
+// # pragma omp for schedule(static)
+//   for (i = 0; i < M; i++)
+//   {
+//       if(!set)
+//       {
+//         set=true;
+//         for(int k=0;k<i;k++)
+//         {
+//           A++;
+//           res++;
+//         }
+//       }
+//       for (j = 0; j < N; j++)
+//       {
+//           *res = 0;
+//           for (k = 0; k < L; k++)
+//           {
+//               *res += (*(A + i*L + k))*(*(B + k*N + j));
+//           }
+//           res++;
+//       }
 //   }
 // }
+// } /* End of matrix multiplication */
 
-void random_assngm(double a[], int length)
+void random_assngm(float a[], int length)
 {
-  cout << "Size of double :" <<  sizeof(double) << endl;
-  cout << "Random assignment \n";
   srand(time(NULL));
   for (int i = 0; i < length; i++) {
     #ifdef DEBUG
       a[i] = i;
     #else
-      a[i] = ((double)(rand()%100))/100.0;
+      a[i] = (rand()%100)/100.0;
     #endif
   }
 }
 
-void print_matrix(double a[], int rows, int cols)
+void print_matrix(float a[], int rows, int cols)
 {
   int j,i;
   for (i = 0; i < rows; i++){
@@ -120,8 +137,8 @@ int main(int argc, char const *argv[]) {
     thread_count = strtol(argv[4], NULL, 10);
   # endif
 
-  double A[M*L], B[L*N], res[M*N];
-  double expectedResult[] = { 42, 48, 54, 114, 136, 158};
+  float A[M*L], B[L*N], res[M*N];
+  float expectedResult[] = { 42, 48, 54, 114, 136, 158};
   double start, finish;
 
   random_assngm(A, M*L);
