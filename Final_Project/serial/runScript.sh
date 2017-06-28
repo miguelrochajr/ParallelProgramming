@@ -6,4 +6,9 @@
 #SBATCH --partition=test
 #SBATCH --output=trap2-%j.out
 
-./my_feed 128 1
+./feed 1048576
+./feed 2097152
+./feed 4194304
+./feed 8388608
+./feed 16777216
+./feed 33554432
