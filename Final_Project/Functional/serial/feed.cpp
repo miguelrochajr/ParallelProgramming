@@ -122,14 +122,14 @@ void random(float *m1, float *m2, int row1, int col1, int row2, int col2)
 	{
 		for(j=0; j<col1; j++)
 		{
-			*m1++ = (rand()%10)/10.0; //initializes Wx
+			*m1++ = (float)rand()/(float)RAND_MAX;
 		}
 	}
 	for(i=0; i<row2; i++)
 	{
 		for(j=0; j<col2; j++)
 		{
-			*m2++ = (rand()%11)/10.0; // Initializes Wy
+			*m2++ = (rand()%10)/10.0; // Initializes Wy
 		}
 	}
 }

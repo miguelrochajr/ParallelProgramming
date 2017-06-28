@@ -9,9 +9,32 @@
 
 using namespace std;
 
-#define DEBUG
+//#define DEBUG
 
-void Matrix_mult(float A[], float B[], float res[],
+void Matrix_mult(float *A, float *B, float *res,
+  int M, int L, int N, int thread_count)
+{
+  /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
+  int i, j, k;
+  double result = 0;
+/* Creates the team of threads */
+# pragma omp parallel num_threads(thread_count) \
+   private(i, j, k) shared(A,B, res,M,L,N) reduction (+: result)
+{
+# pragma omp for schedule(static) /* Use the defautt scheduling */
+  for (i = 0; i < M; i++){
+      for (j = 0; j < N; j++) {
+          result = 0;
+          for (k = 0; k < L; k++) {
+               result += (*(A + i*L + k))*(*(B + k*N + j));
+          }
+          *(res+ j +i*N) = (float)result; /*REMINDER: result is a Double variable*/
+      }
+  }
+}
+}
+
+void Matrix_mult_cpp(float A[], float B[], float res[],
   int M, int L, int N, int thread_count)
 {
   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
@@ -151,7 +174,8 @@ int main(int argc, char const *argv[]) {
 
 
   start = omp_get_wtime();
-  Matrix_mult(A, B, res, M, L, N, thread_count);
+  Matrix_mult(&A[0], &B[0], &res[0], M, L, N, thread_count);
+  //Matrix_mult(A, B, res, M, L, N, thread_count);
   finish = omp_get_wtime();
 
   cout << "Total time taken: " << finish-start << "\n \n" ;

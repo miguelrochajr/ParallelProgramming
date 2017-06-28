@@ -44,16 +44,23 @@ int main(int argc, char const *argv[]) {
   float ATV2[OUTPUTS*SAMPLES];   // Activated induced local fields
 
   /* Initialize Weights with random values */
+  cout << " ANTES \n";
   Random_assngm(Wx, NEURONS*(INPUTS+1));
+  cout << " ENTRE \n";
   Random_assngm(Wy, OUTPUTS*(NEURONS+1));
+  cout << " DEPOIS \n";
 
   start = omp_get_wtime();
 
   Matrix_mult(&Wx[0], &X[0], &ILF1[0], NEURONS,INPUTS+1,SAMPLES); // multiplies each input to each weight assigned to them
+  cout << "PASOU MULT 1 \n";
   Activation_func(ILF1, ATV1, NEURONS, SAMPLES);
+  cout << "PASSOU  ATIV 1\n";
 
   Matrix_mult(&Wy[0], &ATV2[0], &ILF2[0], OUTPUTS, NEURONS+1, SAMPLES);
+  cout << "PASOU MULT 2 \n";
   Activation_func(ILF2, ATV2, OUTPUTS, SAMPLES);
+  cout << "PASSOU  ATIV 2 \n";
 
   finish = omp_get_wtime();
 
