@@ -9,7 +9,7 @@
 
 using namespace std;
 
-//#define DEBUG
+#define DEBUG
 #define PRINTMATRIX
 
 void Matrix_mult(double A[], double B[], double res[],
@@ -39,13 +39,13 @@ void Matrix_mult(double A[], double B[], double res[],
 
 void random_assngm(double a[], int length)
 {
-  double random;
   srand(time(NULL));
   for (int i = 0; i < length; i++) {
-    //a[i] = i;
-    random = ((double)(rand()%10000))/10000;
-    cout << "Random: " << random << endl;
-    a[i] = random;
+    #ifdef DEBUG
+      a[i] = i;
+    #else
+      a[i] = ((double)(rand()%100))/100.0;
+    #endif
   }
 }
 
@@ -90,8 +90,6 @@ void Activation_func(double in[],double out[],int rows, int cols,
 
 int main(int argc, char const *argv[]) {
 
-  if(argc < 5) Usage();
-
   int M,  L,  N, thread_count;
   # ifdef DEBUG
     M = 2;
@@ -99,6 +97,7 @@ int main(int argc, char const *argv[]) {
     N = 3;
     thread_count = strtol(argv[1], NULL, 10);
   # else
+    if(argc < 5) Usage();
     M            = strtol(argv[1], NULL, 10);
     L            = strtol(argv[2], NULL, 10);
     N            = strtol(argv[3], NULL, 10);
@@ -116,10 +115,6 @@ int main(int argc, char const *argv[]) {
     print_matrix(A, M, L);
     print_matrix(B, L, N);
   # endif
-
-  print_matrix(A, M, L);
-  print_matrix(B, L, N);
-
 
 
   start = omp_get_wtime();
