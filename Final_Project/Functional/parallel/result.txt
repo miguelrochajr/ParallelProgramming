@@ -1,0 +1,50 @@
+
+------------ FOR 60000000 NEURONS ----------------
+For 2 threads, the time taken was: 1.637591 seconds
+For 4 threads, the time taken was: 0.965546 seconds
+For 8 threads, the time taken was: 0.681464 seconds
+For 16 threads, the time taken was: 0.718412 seconds
+For 32 threads, the time taken was: 0.608596 seconds
+For 64 threads, the time taken was: 0.575725 seconds
+------------ FOR 70000000 NEURONS ----------------
+For 2 threads, the time taken was: 2.070390 seconds
+For 4 threads, the time taken was: 1.172847 seconds
+For 8 threads, the time taken was: 0.784713 seconds
+For 16 threads, the time taken was: 0.755487 seconds
+For 32 threads, the time taken was: 0.702377 seconds
+For 64 threads, the time taken was: 0.678581 seconds
+------------ FOR 80000000 NEURONS ----------------
+For 2 threads, the time taken was: 2.373593 seconds
+For 4 threads, the time taken was: 1.393415 seconds
+For 8 threads, the time taken was: 0.916811 seconds
+For 16 threads, the time taken was: 0.922567 seconds
+For 32 threads, the time taken was: 0.787690 seconds
+For 64 threads, the time taken was: 0.797288 seconds
+------------ FOR 90000000 NEURONS ----------------
+For 2 threads, the time taken was: 2.480549 seconds
+For 4 threads, the time taken was: 1.475800 seconds
+For 8 threads, the time taken was: 0.999707 seconds
+For 16 threads, the time taken was: 1.025776 seconds
+For 32 threads, the time taken was: 0.863260 seconds
+For 64 threads, the time taken was: 0.912067 seconds
+------------ FOR 100000000 NEURONS ----------------
+For 2 threads, the time taken was: 2.719270 seconds
+For 4 threads, the time taken was: 1.652016 seconds
+For 8 threads, the time taken was: 1.126414 seconds
+For 16 threads, the time taken was: 1.129718 seconds
+For 32 threads, the time taken was: 0.979656 seconds
+For 64 threads, the time taken was: 0.944891 seconds
+------------ FOR 110000000 NEURONS ----------------
+For 2 threads, the time taken was: 3.191091 seconds
+For 4 threads, the time taken was: 1.863159 seconds
+For 8 threads, the time taken was: 1.208894 seconds
+For 16 threads, the time taken was: 1.229356 seconds
+For 32 threads, the time taken was: 1.078299 seconds
+For 64 threads, the time taken was: 1.055781 seconds
+------------ FOR 120000000 NEURONS ----------------
+For 2 threads, the time taken was: 3.328997 seconds
+For 4 threads, the time taken was: 1.995088 seconds
+For 8 threads, the time taken was: 1.360575 seconds
+For 16 threads, the time taken was: 1.337232 seconds
+For 32 threads, the time taken was: 1.235786 seconds
+For 64 threads, the time taken was: 1.175783 seconds

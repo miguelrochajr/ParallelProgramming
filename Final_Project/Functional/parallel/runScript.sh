@@ -9,15 +9,15 @@
 
 THREADS=2 #Starting threads
 THREAD_MAX=64
-n=1048576 #starts with 2^20
-N_MAX=33554432 #Finishes with 2^24
+n=60000000 #starts with 60*10^6
+N_MAX=120000000  #Finishes with 120*10^6
 
 while [[ $n -lt $N_MAX || $n -eq $N_MAX ]]; do
   THREADS=2
   echo "------------ FOR $n NEURONS ----------------"
   while [[ $THREADS -lt $THREAD_MAX || $THREADS -eq $THREAD_MAX ]]; do
-    ./my_feed $n $THREADS
+    ./parallel_feed $n $THREADS
     let "THREADS*=2"
   done
-  let "n*=2"
+  let "n+=10000000"
 done

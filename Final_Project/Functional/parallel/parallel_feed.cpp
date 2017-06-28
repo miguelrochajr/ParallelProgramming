@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
 	finish = omp_get_wtime();
 
-	printf("For %d neurons, the time taken was: %lf seconds \n", NEURONS, finish-start);
+	printf("For %d threads, the time taken was: %lf seconds \n", thread_count, finish-start);
 
 	#ifdef DEBUG
 		int i,j;
