@@ -1,14 +1,14 @@
 #!/bin/bash
 
-#!/bin/bash
 #SBATCH --job-name=OMP_feed
 #SBATCH --time=0-0:4
 #SBATCH --partition=test
 #SBATCH --output=trap2-%j.out
 
-./feed 1048576
-./feed 2097152
-./feed 4194304
-./feed 8388608
-./feed 16777216
-./feed 33554432
+N=1048576 #starts with 2^20
+N_MAX=33554432 #Finishes with 2^24
+
+while [[ $N -lt $N_MAX || $N -eq $N_MAX ]]; do
+  ./serial_feed $N
+  let "N*=2"
+done

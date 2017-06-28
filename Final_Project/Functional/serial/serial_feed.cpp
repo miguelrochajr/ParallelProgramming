@@ -95,12 +95,14 @@ void Matrix_mult(float *A, float *B, float *res, int M, int L, int N)
 void Activ_func(float *in,float *out,int row, int col)
 {
 	int i,j;
+	double result;
 	for(i=0;i < row;i++)
 	{
 		for(j = 0;j< col;j++)
 		{
-			out[i*col+j] = 1.0/(1.0 + exp(-(in[i*col+j])));
+			 result = 1.0/(1.0 + exp(-(*(in + i*col+j))));
 		}
+		*(out + i*col+j) = (float)result; /* REMINDER: result is a DOUBLE */
 	}
 }
 
