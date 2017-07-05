@@ -86,11 +86,11 @@ void Matrix_mult(float *A, float *B, float *res,
 {
   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
   int i, j, k;
-  double result = 0;
 /* Creates the team of threads */
 # pragma omp parallel num_threads(thread_count) \
-   private(i, j, k) shared(A,B, res,M,L,N) reduction (+: result)
+   private(i, j, k) shared(A,B, res,M,L,N)
 {
+  double result = 0;
 # pragma omp for schedule(static) /* Use the defautt scheduling */
   for (i = 0; i < M; i++){
       for (j = 0; j < N; j++) {
@@ -107,10 +107,10 @@ void Matrix_mult(float *A, float *B, float *res,
 void Activ_func(float *in,float *out,int rows, int cols,int thread_count)
 { /*	SIGMOID FUNCTION */
 	int i,j;
-	double result=0;
 # pragma omp parallel num_threads(thread_count) \
-	private (i,j) shared(in, out, rows, cols) reduction(+: result)
+	private (i,j) shared(in, out, rows, cols)
 {
+  double result=0;
 #	pragma omp for schedule(static)
 	for(i=0;i < rows;i++)
 	{
